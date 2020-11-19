@@ -21,7 +21,7 @@ class GeneticAlgorithm
    friend class Chromosome;
 
    template <typename K>
-   using Func = std::vector<K> (*)(const std::vector<K>&);
+   using Func = std::function<std::vector<K>(const std::vector<K>&)>;
 
 private:
    Population<T,N> pop;       // population of chromosomes
@@ -66,6 +66,13 @@ public:
    void run();
    // return best chromosome 
    const CHR<T,N>& result() const;
+   // return single variables
+   T x(const size_t& i) const
+   {
+       assert(this->result() != nullptr);
+       assert(i < this->result()->getParam().size());
+       return this->result()->getParam()[i];
+   }
 
 private:
    int nbgen;     // number of generations
