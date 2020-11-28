@@ -20,7 +20,7 @@ class GeneticAlgorithm
    friend class Chromosome;
 
    template <typename K>
-   using Func = std::vector<K> (*)(const std::vector<K>&);
+   using Func = std::function<std::vector<K>(const std::vector<K>&)>;
 
 private:
    Population<T> pop;             // population of chromosomes
@@ -42,7 +42,7 @@ public:
    // adaptation to constraint(s) method                                        
    void (*Adaptation)(Population<T>&) = nullptr; 
    // constraint(s)                               
-   std::vector<T> (*Constraint)(const std::vector<T>&) = nullptr; 
+   std::function<std::vector<T>(const std::vector<T>&)> Constraint = nullptr; 
 
    T covrate = .50;   // cross-over rate
    T mutrate = .05;   // mutation rate   
