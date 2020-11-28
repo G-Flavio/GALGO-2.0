@@ -6,7 +6,7 @@
 #define CHROMOSOME_HPP
 
 namespace galgo {
-
+namespace v1 {
 //=================================================================================================
 
 template <typename T, int N = 16>
@@ -176,7 +176,7 @@ inline void Chromosome<T,N>::setGene(int k)
 {
    #ifndef NDEBUG
    if (k < 0 || k >= ptr->nbparam) {
-      throw std::invalid_argument("Error: in galgo::Chromosome<T>::setGene(int), argument cannot be outside interval [0,nbparam-1], please amend.");
+      throw std::invalid_argument("Error: in galgo::v1::Chromosome<T>::setGene(int), argument cannot be outside interval [0,nbparam-1], please amend.");
    }
    #endif
 
@@ -194,7 +194,7 @@ inline void Chromosome<T,N>::initGene(int k, T x)
 {
    #ifndef NDEBUG
    if (k < 0 || k >= ptr->nbparam) {
-      throw std::invalid_argument("Error: in galgo::Chromosome<T>::initGene(int), first argument cannot be outside interval [0,nbparam-1], please amend.");
+      throw std::invalid_argument("Error: in galgo::v1::Chromosome<T>::initGene(int), first argument cannot be outside interval [0,nbparam-1], please amend.");
    }
    #endif
 
@@ -216,7 +216,7 @@ inline void Chromosome<T,N>::addBit(char bit)
 
    #ifndef NDEBUG
    if (chr.size() > chrsize) {
-      throw std::invalid_argument("Error: in galgo::Chromosome<T>::setBit(char), exceeding chromosome size.");
+      throw std::invalid_argument("Error: in galgo::v1::Chromosome<T>::setBit(char), exceeding chromosome size.");
    }
    #endif
 }
@@ -229,7 +229,7 @@ inline void Chromosome<T,N>::setBit(char bit, int pos)
 {  
    #ifndef NDEBUG
    if (pos >= chrsize) {
-      throw std::invalid_argument("Error: in galgo::Chromosome<T>::replaceBit(char, int), second argument cannot be equal or greater than chromosome size.");
+      throw std::invalid_argument("Error: in galgo::v1::Chromosome<T>::replaceBit(char, int), second argument cannot be equal or greater than chromosome size.");
    }
    #endif
 
@@ -249,7 +249,7 @@ inline void Chromosome<T,N>::flipBit(int pos)
 {
    #ifndef NDEBUG
    if (pos >= chrsize) {
-      throw std::invalid_argument("Error: in galgo::Chromosome<T>::flipBit(int), argument cannot be equal or greater than chromosome size.");
+      throw std::invalid_argument("Error: in galgo::v1::Chromosome<T>::flipBit(int), argument cannot be equal or greater than chromosome size.");
    }
    #endif
 
@@ -268,7 +268,7 @@ inline char Chromosome<T,N>::getBit(int pos) const
 {
    #ifndef NDEBUG
    if (pos >= chrsize) {
-      throw std::invalid_argument("Error: in galgo::Chromosome<T>::getBit(int), argument cannot be equal or greater than chromosome size.");
+      throw std::invalid_argument("Error: in galgo::v1::Chromosome<T>::getBit(int), argument cannot be equal or greater than chromosome size.");
    }
    #endif
 
@@ -283,7 +283,7 @@ inline void Chromosome<T,N>::setPortion(const Chromosome<T,N>& x, int start, int
 {
    #ifndef NDEBUG
    if (start > chrsize) {
-      throw std::invalid_argument("Error: in galgo::Chromosome<T>::setPortion(const Chromosome<T>&, int, int), second argument cannot be greater than chromosome size.");
+      throw std::invalid_argument("Error: in galgo::v1::Chromosome<T>::setPortion(const Chromosome<T>&, int, int), second argument cannot be greater than chromosome size.");
    }
    #endif
 
@@ -298,7 +298,7 @@ inline void Chromosome<T,N>::setPortion(const Chromosome<T,N>& x, int start)
 {
    #ifndef NDEBUG
    if (start > chrsize) {
-      throw std::invalid_argument("Error: in galgo::Chromosome<T>::setPortion(const Chromosome<T>&, int), second argument cannot be greater than chromosome size.");
+      throw std::invalid_argument("Error: in galgo::v1::Chromosome<T>::setPortion(const Chromosome<T>&, int), second argument cannot be greater than chromosome size.");
    }
    #endif
 
@@ -397,6 +397,7 @@ inline const std::vector<T>& Chromosome<T,N>::upperBound() const
 
 //=================================================================================================
 
+}
 }
 
 #endif

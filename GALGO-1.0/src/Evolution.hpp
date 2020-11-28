@@ -16,7 +16,7 @@
 
 // proportional roulette wheel selection
 template <typename T, int N>
-void RWS(galgo::Population<T,N>& x)
+void RWS(galgo::v1::Population<T,N>& x)
 {
    // adjusting all fitness to positive values
    x.adjustFitness();
@@ -26,13 +26,13 @@ void RWS(galgo::Population<T,N>& x)
    // selecting mating population
    for (int i = 0, end = x.matsize(); i < end; ++i) {
       // generating a random fitness sum in [0,fitsum)
-      T fsum = galgo::uniform<T>(0.0, fitsum);
+      T fsum = galgo::v1::uniform<T>(0.0, fitsum);
 
       int j = 0;
       while (fsum >= 0.0) {
          #ifndef NDEBUG
          if (j == x.popsize()) {
-            throw std::invalid_argument("Error: in RWS(galgo::Population<T>&) index j cannot be equal to population size.");
+            throw std::invalid_argument("Error: in RWS(galgo::v1::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          fsum -= x(j)->fitness;
@@ -47,7 +47,7 @@ void RWS(galgo::Population<T,N>& x)
 
 // stochastic universal sampling selection
 template <typename T, int N>
-void SUS(galgo::Population<T,N>& x)
+void SUS(galgo::v1::Population<T,N>& x)
 {
    // adjusting all fitness to positive values
    x.adjustFitness();
@@ -58,7 +58,7 @@ void SUS(galgo::Population<T,N>& x)
    // computing interval size
    T dist = fitsum / matsize;
    // initializing pointer
-   T ptr = galgo::uniform<T>(0.0, dist);
+   T ptr = galgo::v1::uniform<T>(0.0, dist);
    
    // selecting mating population
    for (int i = 0; i < matsize; ++i) {
@@ -69,7 +69,7 @@ void SUS(galgo::Population<T,N>& x)
       while (fsum <= ptr) {
          #ifndef NDEBUG
          if (j == x.popsize()) {
-            throw std::invalid_argument("Error: in SUS(galgo::Population<T>&) index j cannot be equal to population size.");
+            throw std::invalid_argument("Error: in SUS(galgo::v1::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          fsum += x(j)->fitness;
@@ -87,7 +87,7 @@ void SUS(galgo::Population<T,N>& x)
 
 // classic linear rank-based selection
 template <typename T, int N>
-void RNK(galgo::Population<T,N>& x)
+void RNK(galgo::v1::Population<T,N>& x)
 {
    int popsize = x.popsize();
    static std::vector<int> rank(popsize);
@@ -105,13 +105,13 @@ void RNK(galgo::Population<T,N>& x)
    // selecting mating population
    for (int i = 0, end = x.matsize(); i < end; ++i) {
       // generating a random rank sum in [1,ranksum)
-      int rsum = galgo::uniform<int>(1, ranksum);
+      int rsum = galgo::v1::uniform<int>(1, ranksum);
 
       int j = 0;
       while (rsum > 0) {
          #ifndef NDEBUG
          if (j == popsize) {
-            throw std::invalid_argument("Error: in RNK(galgo::Population<T>&) index j cannot be equal to population size.");
+            throw std::invalid_argument("Error: in RNK(galgo::v1::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          rsum -= rank[j];
@@ -126,7 +126,7 @@ void RNK(galgo::Population<T,N>& x)
 
 // linear rank-based selection with selective pressure
 template <typename T, int N>
-void RSP(galgo::Population<T,N>& x)
+void RSP(galgo::v1::Population<T,N>& x)
 {
    int popsize = x.popsize();
    static std::vector<T> rank(popsize);
@@ -146,13 +146,13 @@ void RSP(galgo::Population<T,N>& x)
    // selecting mating population
    for (int i = 0, end = x.matsize(); i < end; ++i) {
       // generating a random rank sum in [0,ranksum)
-      T rsum = galgo::uniform<T>(0.0, ranksum);
+      T rsum = galgo::v1::uniform<T>(0.0, ranksum);
 
       int j = 0;
       while (rsum >= 0.0) {
          #ifndef NDEBUG
          if (j == popsize) {
-            throw std::invalid_argument("Error: in RSP(galgo::Population<T>&) index j cannot be equal to population size.");
+            throw std::invalid_argument("Error: in RSP(galgo::v1::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          rsum -= rank[j];
@@ -167,7 +167,7 @@ void RSP(galgo::Population<T,N>& x)
 
 // tournament selection
 template <typename T, int N>
-void TNT(galgo::Population<T,N>& x)
+void TNT(galgo::v1::Population<T,N>& x)
 {
    int popsize = x.popsize();
    int tntsize = x.tntsize();
@@ -175,13 +175,13 @@ void TNT(galgo::Population<T,N>& x)
    // selecting mating population
    for (int i = 0, end = x.matsize(); i < end; ++i) {
       // selecting randomly a first element
-      int bestIdx = galgo::uniform<int>(0, popsize);
+      int bestIdx = galgo::v1::uniform<int>(0, popsize);
       T bestFit = x(bestIdx)->fitness;
    
       // starting tournament
       for (int j = 1; j < tntsize; ++j) {
    
-         int idx = galgo::uniform<int>(0, popsize);
+         int idx = galgo::v1::uniform<int>(0, popsize);
          T fit = x(idx)->fitness;
       
          if (fit > bestFit) {
@@ -198,7 +198,7 @@ void TNT(galgo::Population<T,N>& x)
 
 // transform ranking selection
 template <typename T, int N>
-void TRS(galgo::Population<T,N>& x)
+void TRS(galgo::v1::Population<T,N>& x)
 {
    static T c;
    // (re)initializing when running new GA
@@ -208,7 +208,7 @@ void TRS(galgo::Population<T,N>& x)
    int popsize = x.popsize();
    // generating a random set of popsize values on [0,1)
    std::vector<T> r(popsize);
-   std::for_each(r.begin(),r.end(),[](T& z)->T{z = galgo::proba(galgo::rng);});
+   std::for_each(r.begin(),r.end(),[](T& z)->T{z = galgo::v1::proba(galgo::v1::rng);});
    // sorting them from highest to lowest
    std::sort(r.begin(),r.end(),[](T z1, T z2)->bool{return z1 > z2;});
    // transforming population fitness
@@ -224,13 +224,13 @@ void TRS(galgo::Population<T,N>& x)
    // selecting mating population
    for (int i = 0, end = x.matsize(); i < end; ++i) {
       // generating a random fitness sum in [0,fitsum)
-      T fsum = galgo::uniform<int>(0, fitsum);
+      T fsum = galgo::v1::uniform<int>(0, fitsum);
  
       int j = 0;
       while (fsum >= 0) {
          #ifndef NDEBUG
          if (j == popsize) {
-            throw std::invalid_argument("Error: in TRS(galgo::Population<T>&) index j cannot be equal to population size.");
+            throw std::invalid_argument("Error: in TRS(galgo::v1::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          fsum -= x(j)->fitness;
@@ -249,13 +249,13 @@ void TRS(galgo::Population<T,N>& x)
 
 // one-point random cross-over of 2 chromosomes
 template <typename T, int N>
-void P1XO(const galgo::Population<T,N>& x, galgo::CHR<T,N>& chr1, galgo::CHR<T,N>& chr2)
+void P1XO(const galgo::v1::Population<T,N>& x, galgo::v1::CHR<T,N>& chr1, galgo::v1::CHR<T,N>& chr2)
 {
    // choosing randomly 2 chromosomes from mating population
-   int idx1 = galgo::uniform<int>(0, x.matsize());
-   int idx2 = galgo::uniform<int>(0, x.matsize());
+   int idx1 = galgo::v1::uniform<int>(0, x.matsize());
+   int idx2 = galgo::v1::uniform<int>(0, x.matsize());
    // choosing randomly a position for cross-over
-   int pos = galgo::uniform<int>(0, chr1->size());
+   int pos = galgo::v1::uniform<int>(0, chr1->size());
    // transmitting portion of bits to new chromosomes
    chr1->setPortion(*x[idx1], 0, pos);
    chr2->setPortion(*x[idx2], 0, pos);
@@ -267,14 +267,14 @@ void P1XO(const galgo::Population<T,N>& x, galgo::CHR<T,N>& chr1, galgo::CHR<T,N
 
 // two-point random cross-over of 2 chromosomes
 template <typename T, int N>
-void P2XO(const galgo::Population<T,N>& x, galgo::CHR<T,N>& chr1, galgo::CHR<T,N>& chr2)
+void P2XO(const galgo::v1::Population<T,N>& x, galgo::v1::CHR<T,N>& chr1, galgo::v1::CHR<T,N>& chr2)
 {
    // choosing randomly 2 chromosomes from mating population
-   int idx1 = galgo::uniform<int>(0, x.matsize());
-   int idx2 = galgo::uniform<int>(0, x.matsize());
+   int idx1 = galgo::v1::uniform<int>(0, x.matsize());
+   int idx2 = galgo::v1::uniform<int>(0, x.matsize());
    // choosing randomly 2 positions for cross-over
-   int pos1 = galgo::uniform<int>(0, chr1->size());
-   int pos2 = galgo::uniform<int>(0, chr1->size());
+   int pos1 = galgo::v1::uniform<int>(0, chr1->size());
+   int pos2 = galgo::v1::uniform<int>(0, chr1->size());
    // ordering these 2 random positions
    int m = std::min(pos1,pos2);
    int M = std::max(pos1,pos2);
@@ -291,15 +291,15 @@ void P2XO(const galgo::Population<T,N>& x, galgo::CHR<T,N>& chr1, galgo::CHR<T,N
 
 // uniform random cross-over of 2 chromosomes
 template <typename T, int N>
-void UXO(const galgo::Population<T,N>& x, galgo::CHR<T,N>& chr1, galgo::CHR<T,N>& chr2)
+void UXO(const galgo::v1::Population<T,N>& x, galgo::v1::CHR<T,N>& chr1, galgo::v1::CHR<T,N>& chr2)
 {
    // choosing randomly 2 chromosomes from mating population
-   int idx1 = galgo::uniform<int>(0, x.matsize());
-   int idx2 = galgo::uniform<int>(0, x.matsize());
+   int idx1 = galgo::v1::uniform<int>(0, x.matsize());
+   int idx2 = galgo::v1::uniform<int>(0, x.matsize());
 
    for (int j = 0; j < chr1->size(); ++j) {
       // choosing 1 of the 2 chromosomes randomly
-      if (galgo::proba(galgo::rng) < 0.50) {
+      if (galgo::v1::proba(galgo::v1::rng) < 0.50) {
          // adding its jth bit to new chromosome
          chr1->addBit(x[idx1]->getBit(j));
          chr2->addBit(x[idx2]->getBit(j));
@@ -319,7 +319,7 @@ void UXO(const galgo::Population<T,N>& x, galgo::CHR<T,N>& chr1, galgo::CHR<T,N>
 
 // boundary mutation: replacing a chromosome gene by its lower or upper bound
 template <typename T, int N>
-void BDM(galgo::CHR<T,N>& chr)
+void BDM(galgo::v1::CHR<T,N>& chr)
 { 
    T mutrate = chr->mutrate();
 
@@ -333,9 +333,9 @@ void BDM(galgo::CHR<T,N>& chr)
    // looping on number of genes
    for (int i = 0; i < chr->nbgene(); ++i) {
       // generating a random probability
-      if (galgo::proba(galgo::rng) <= mutrate) {
+      if (galgo::v1::proba(galgo::v1::rng) <= mutrate) {
          // generating a random probability
-         if (galgo::proba(galgo::rng) < .5) {
+         if (galgo::v1::proba(galgo::v1::rng) < .5) {
             // replacing ith gene by lower bound
             chr->initGene(i, lowerBound[i]);
          } else {  
@@ -350,7 +350,7 @@ void BDM(galgo::CHR<T,N>& chr)
 
 // single point mutation: flipping a chromosome bit
 template <typename T, int N>
-void SPM(galgo::CHR<T,N>& chr)
+void SPM(galgo::v1::CHR<T,N>& chr)
 { 
    T mutrate = chr->mutrate();
 
@@ -359,7 +359,7 @@ void SPM(galgo::CHR<T,N>& chr)
    // looping on chromosome bits
    for (int i = 0; i < chr->size(); ++i) {
       // generating a random probability
-      if (galgo::proba(galgo::rng) <= mutrate) {
+      if (galgo::v1::proba(galgo::v1::rng) <= mutrate) {
          // flipping ith bit
          chr->flipBit(i);  
       }     
@@ -370,7 +370,7 @@ void SPM(galgo::CHR<T,N>& chr)
 
 // uniform mutation: replacing a chromosome gene by a new one
 template <typename T, int N>
-void UNM(galgo::CHR<T,N>& chr)
+void UNM(galgo::v1::CHR<T,N>& chr)
 { 
    T mutrate = chr->mutrate();
 
@@ -379,7 +379,7 @@ void UNM(galgo::CHR<T,N>& chr)
    // looping on number of genes
    for (int i = 0; i < chr->nbgene(); ++i) {
       // generating a random probability
-      if (galgo::proba(galgo::rng) <= mutrate) {
+      if (galgo::v1::proba(galgo::v1::rng) <= mutrate) {
          // replacing ith gene by a new one
          chr->setGene(i);  
       }     
@@ -394,7 +394,7 @@ void UNM(galgo::CHR<T,N>& chr)
 
 // adapt population to genetic algorithm constraint(s)
 template <typename T, int N>
-void DAC(galgo::Population<T,N>& x)
+void DAC(galgo::v1::Population<T,N>& x)
 {
    // getting worst population objective function total result
    T worstTotal = x.getWorstTotal();

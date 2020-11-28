@@ -6,6 +6,7 @@
 #define GENETICALGORITHM_HPP
 
 namespace galgo {
+namespace v1 {
 
 //=================================================================================================
 
@@ -114,39 +115,39 @@ bool GeneticAlgorithm<T,N>::check() const
    if (!initialSet.empty()) {
       for (int i = 0; i < nbparam; ++i) {
          if (initialSet[i] < lowerBound[i] || initialSet[i] > upperBound[i]) {
-            std::cerr << " Error: in class galgo::GeneticAlgorithm<T>, initial set of parameters (initialSet) cannot be outside [lowerBound,upperBound], please choose a set within these boundaries.\n";
+            std::cerr << " Error: in class galgo::v1::GeneticAlgorithm<T>, initial set of parameters (initialSet) cannot be outside [lowerBound,upperBound], please choose a set within these boundaries.\n";
             return false;
          }
       }
       if (initialSet.size() != (unsigned)nbparam) {
-         std::cerr << " Error: in class galgo::GeneticAlgorithm<T>, initial set of parameters (initialSet) does not have the same dimension than the number of parameters, please adjust.\n";
+         std::cerr << " Error: in class galgo::v1::GeneticAlgorithm<T>, initial set of parameters (initialSet) does not have the same dimension than the number of parameters, please adjust.\n";
          return false;
       }
    }
    if (lowerBound.size() != upperBound.size()) {
-      std::cerr << " Error: in class galgo::GeneticAlgorithm<T>, lower bound (lowerBound) and upper bound (upperBound) must be of same dimension, please adjust.\n";
+      std::cerr << " Error: in class galgo::v1::GeneticAlgorithm<T>, lower bound (lowerBound) and upper bound (upperBound) must be of same dimension, please adjust.\n";
       return false;
    }
    for (int i = 0; i < nbparam; ++i) {
       if (lowerBound[i] >= upperBound[i]) {
-         std::cerr << " Error: in class galgo::GeneticAlgorithm<T>, lower bound (lowerBound) cannot be equal or greater than upper bound (upperBound), please amend.\n";
+         std::cerr << " Error: in class galgo::v1::GeneticAlgorithm<T>, lower bound (lowerBound) cannot be equal or greater than upper bound (upperBound), please amend.\n";
          return false;
       }
    }
    if (SP < 1.0 || SP > 2.0) {
-      std::cerr << " Error: in class galgo::GeneticAlgorithm<T>, selective pressure (SP) cannot be outside [1.0,2.0], please choose a real value within this interval.\n";
+      std::cerr << " Error: in class galgo::v1::GeneticAlgorithm<T>, selective pressure (SP) cannot be outside [1.0,2.0], please choose a real value within this interval.\n";
       return false;
    }
    if (elitpop > popsize || elitpop < 0) {
-      std::cerr << " Error: in class galgo::GeneticAlgorithm<T>, elit population (elitpop) cannot outside [0,popsize], please choose an integral value within this interval.\n";
+      std::cerr << " Error: in class galgo::v1::GeneticAlgorithm<T>, elit population (elitpop) cannot outside [0,popsize], please choose an integral value within this interval.\n";
       return false;
    }
    if (covrate < 0.0 || covrate > 1.0) {
-      std::cerr << " Error: in class galgo::GeneticAlgorithm<T>, cross-over rate (covrate) cannot outside [0.0,1.0], please choose a real value within this interval.\n";
+      std::cerr << " Error: in class galgo::v1::GeneticAlgorithm<T>, cross-over rate (covrate) cannot outside [0.0,1.0], please choose a real value within this interval.\n";
       return false;
    }
    if (genstep <= 0) {
-      std::cerr << " Error: in class galgo::GeneticAlgorithm<T>, generation step (genstep) cannot be <= 0, please choose an integral value > 0.\n";
+      std::cerr << " Error: in class galgo::v1::GeneticAlgorithm<T>, generation step (genstep) cannot be <= 0, please choose an integral value > 0.\n";
       return false;
    }
    return true;
@@ -266,6 +267,7 @@ void GeneticAlgorithm<T,N>::print() const
    
 //=================================================================================================
 
+}
 }
 
 #endif

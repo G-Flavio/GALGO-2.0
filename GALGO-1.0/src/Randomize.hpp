@@ -6,6 +6,7 @@
 #define RANDOMIZE_H
 
 namespace galgo {
+namespace v1 {
 
 //=================================================================================================
 
@@ -40,7 +41,7 @@ inline T uniform(T min, T max)
 {   
     #ifndef NDEBUG
     if (min >= max) {
-      throw std::invalid_argument("Error: in galgo::uniform(T, T), first argument must be < to second argument.");
+      throw std::invalid_argument("Error: in galgo::v1::uniform(T, T), first argument must be < to second argument.");
     }
     #endif
  
@@ -49,6 +50,7 @@ inline T uniform(T min, T max)
 
 //=================================================================================================
 
+}
 }
 
 #endif

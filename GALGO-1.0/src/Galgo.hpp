@@ -30,6 +30,7 @@
 /*-------------------------------------------------------------------------------------------------*/
 
 namespace galgo {
+namespace v1 {
 
 template <typename T, int N>
 class GeneticAlgorithm;
@@ -44,6 +45,7 @@ class Chromosome;
 template <typename T, int N>
 using CHR = std::shared_ptr<Chromosome<T,N>>;
 
+}
 }
 
 /*-------------------------------------------------------------------------------------------------*/

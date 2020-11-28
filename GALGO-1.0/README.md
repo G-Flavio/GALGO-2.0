@@ -53,12 +53,14 @@ By default GALGO is set to run with no constraint and with RWS, P1XO and SPM.
 
 # C++ template class *GeneticAlgorithm*
 
-This is the class you need to instantiate to run a genetic algorithm, declared and defined within the namespace galgo in the header GeneticAlgorithm.hpp. 
+This is the class you need to instantiate to run a genetic algorithm, declared and defined within the namespace galgo::v1 in the header GeneticAlgorithm.hpp. 
 
 ```C++
 namespace galgo {
+namespace v1 {
 template <typename T,int N>
 class GeneticAlgorithm;
+}
 }
 ```
 The template parameter T can be either float or double for the precision of the solution returned. N is the number of bits used to encode the chromosomes, set to 16 by default, it must be between 1 and 64.
@@ -143,7 +145,7 @@ int main()
    std::vector<double> UB({1.0,13.0});
 
    // initiliazing genetic algorithm
-   galgo::GeneticAlgorithm<double> ga(MyObjective<double>::Objective,100,LB,UB,50,false);
+   galgo::v1::GeneticAlgorithm<double> ga(MyObjective<double>::Objective,100,LB,UB,50,false);
  
    // setting constraints
    ga.Constraint = MyConstraint;

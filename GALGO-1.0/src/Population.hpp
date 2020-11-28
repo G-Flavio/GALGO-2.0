@@ -6,7 +6,8 @@
 #define POPULATION_HPP
 
 namespace galgo {
-
+namespace v1 {
+   
 //=================================================================================================
 
 template <typename T, int N = 16>
@@ -224,7 +225,7 @@ const CHR<T,N>& Population<T,N>::operator()(int pos) const
 {
    #ifndef NDEBUG
    if (pos > ptr->popsize - 1) {
-      throw std::invalid_argument("Error: in galgo::Population<T>::operator()(int), exceeding current population memory.");
+      throw std::invalid_argument("Error: in galgo::v1::Population<T>::operator()(int), exceeding current population memory.");
    }
    #endif
 
@@ -239,7 +240,7 @@ const CHR<T,N>& Population<T,N>::operator[](int pos) const
 {
    #ifndef NDEBUG
    if (pos > ptr->matsize - 1) {
-      throw std::invalid_argument("Error: in galgo::Population<T>::operator[](int), exceeding mating population memory.");
+      throw std::invalid_argument("Error: in galgo::v1::Population<T>::operator[](int), exceeding mating population memory.");
    }
    #endif
 
@@ -290,10 +291,10 @@ inline void Population<T,N>::select(int pos)
 {
    #ifndef NDEBUG
    if (pos > ptr->popsize - 1) {
-      throw std::invalid_argument("Error: in galgo::Population<T>::select(int), exceeding current population memory.");
+      throw std::invalid_argument("Error: in galgo::v1::Population<T>::select(int), exceeding current population memory.");
    }
    if (matidx == ptr->matsize) {
-      throw std::invalid_argument("Error: in galgo::Population<T>::select(int), exceeding mating population memory.");
+      throw std::invalid_argument("Error: in galgo::v1::Population<T>::select(int), exceeding mating population memory.");
    }
    #endif
 
@@ -398,6 +399,7 @@ inline T Population<T,N>::SP() const
 
 //=================================================================================================
 
+}
 }
 
 #endif
